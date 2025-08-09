@@ -1,0 +1,39 @@
+[
+    {
+        "id": "station_technician_1",
+        "name": "Station Technician",
+        "icon": "images/npc/station_technician.png",
+        "location": "cantina",
+        "dialogue": {
+            "start": {
+                "text": "He looks up from his drink as you approach. \"Can I help you? Or are you just sightseeing?\"",
+                "choices": [
+                    { "text": "What do you do around here?", "next": "what_do_you_do" },
+                    { "text": "What's good to drink here?", "next": "whats_good_to_drink" },
+                    { "text": "(Leave) Nevermind.", "next": "end" }
+                ]
+            },
+            "what_do_you_do": {
+                "text": "\"I'm a junior maintenance tech. I mostly just try to keep the lights on and the air breathable. It's not glamorous, but it's a living.\"",
+                "choices": [
+                    { "text": "Sounds important.", "next": "sounds_important" },
+                    { "text": "What's good to drink here?", "next": "whats_good_to_drink" },
+                    { "text": "(Leave) Thanks for the chat.", "next": "end" }
+                ]
+            },
+            "sounds_important": {
+                "text": "He chuckles. \"You'd think so, but you'd be surprised how often I'm just tightening bolts that weren't loose in the first place. Anyway, I'm off-duty. Let me enjoy my drink, okay?\"",
+                 "choices": [
+                    { "text": "(Leave) Alright, enjoy.", "next": "end" }
+                ]
+            },
+            "whats_good_to_drink": {
+                "text": "\"The synth-ale is cheap and almost tastes like the real thing. Can't go wrong with that.\" He takes a sip from his own glass.",
+                "choices": [
+                     { "text": "What do you do around here?", "next": "what_do_you_do" },
+                     { "text": "(Leave) Good to know.", "next": "end" }
+                ]
+            }
+        }
+    }
+]

@@ -1,0 +1,85 @@
+[
+    {
+        "id": "start",
+        "name": "Generic Space Station Hub",
+        "description": "You are in the central hub of a generic space station. It's clean, sterile, and smells faintly of ozone. Corridors stretch out in all directions.",
+        "mapIcon": "S",
+        "x": 0,
+        "y": 0,
+        "connections": {
+            "north": "corridor_north",
+            "east": "corridor_east",
+            "south": "corridor_south",
+            "west": "corridor_west"
+        }
+    },
+    {
+        "id": "corridor_north",
+        "name": "North Corridor",
+        "description": "A long, white corridor stretches north. A sign on the wall points west towards the Docking Bay.",
+        "mapIcon": "|",
+        "x": 0,
+        "y": -1,
+        "connections": {
+            "south": "start",
+            "west": "docking_bay_entrance"
+        }
+    },
+    {
+        "id": "docking_bay_entrance",
+        "name": "Docking Bay Entrance",
+        "description": "You are outside a large blast door leading to the docking bay.",
+        "mapIcon": "D",
+        "x": -1,
+        "y": -1,
+        "connections": {
+            "east": "corridor_north"
+        }
+    },
+    {
+        "id": "corridor_east",
+        "name": "East Corridor",
+        "description": "A long, white corridor stretches east. You can hear faint music coming from a door to the south.",
+        "mapIcon": "-",
+        "x": 1,
+        "y": 0,
+        "connections": {
+            "west": "start",
+            "south": "cantina"
+        }
+    },
+    {
+        "id": "cantina",
+        "name": "Station Cantina",
+        "description": "A cozy, dimly lit cantina. A few patrons are scattered around. A technician is nursing a drink at the bar.",
+        "mapIcon": "C",
+        "x": 1,
+        "y": 1,
+        "connections": {
+            "north": "corridor_east"
+        },
+        "characters": ["station_technician_1"]
+    },
+    {
+        "id": "corridor_south",
+        "name": "South Corridor",
+        "description": "A long, white corridor stretches south. It ends in a maintenance access panel.",
+        "mapIcon": "|",
+        "x": 0,
+        "y": 1,
+        "connections": {
+            "north": "start"
+        }
+    },
+    {
+        "id": "corridor_west",
+        "name": "West Corridor",
+        "description": "A long, white corridor stretches west. It seems to be a service corridor, with pipes and conduits lining the walls.",
+        "mapIcon": "-",
+        "x": -1,
+        "y": 0,
+        "connections": {
+            "east": "start"
+        }
+    }
+]

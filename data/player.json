@@ -1,0 +1,18 @@
+{
+    "name": "Player",
+    "stats": {
+        "shields": 100,
+        "hp": 100,
+        "energy": 50,
+        "physique": 10,
+        "reflexes": 10,
+        "aim": 10,
+        "intelligence": 10,
+        "willpower": 10
+    },
+    "level": 1,
+    "xp": 0,
+    "credits": 1000,
+    "statusEffects": [],
+    "currentLocation": "start"
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFW Adventure Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="left-sidebar">
+            <div id="character-info">
+                <img id="character-icon" alt="Character or Location Icon">
+                <h2 id="character-name">Generic Space Station</h2>
+                <p>PLANET: <span id="planet-name">New Texas</span></p>
+                <p>SYSTEM: <span id="system-name">Nye</span></p>
+            </div>
+            <div id="location-map">
+                <h3>LOCATION MAP</h3>
+                <div id="map-grid">
+                    <!-- 25 map cells will be generated here by JS -->
+                </div>
+            </div>
+            <div id="time-date">
+                <p>TERRAN STANDARD</p>
+                <p>TIME: <span id="time">14:34</span></p>
+                <p>SOLAR DAYS: <span id="date">7</span></p>
+            </div>
+            <div id="menu-buttons">
+                <button>Menu</button>
+                <button>Level Up</button>
+                <button>Journal</button>
+                <button>Character</button>
+            </div>
+        </div>
+        <div id="main-content">
+            <p id="main-text">This is the main content area where the game's story will unfold. You will see descriptions of locations, events, and dialogues here.</p>
+        </div>
+        <div id="right-sidebar">
+            <div id="player-stats">
+                <h3>COMBAT STATS</h3>
+                <ul>
+                    <li>SHIELDS: <span id="stat-shields">100</span></li>
+                    <li>HP: <span id="stat-hp">100</span></li>
+                    <li>ENERGY: <span id="stat-energy">50</span></li>
+                </ul>
+                <h3>CORE STATS</h3>
+                <ul>
+                    <li>PHYSIQUE: <span id="stat-physique">10</span></li>
+                    <li>REFLEXES: <span id="stat-reflexes">10</span></li>
+                    <li>AIM: <span id="stat-aim">10</span></li>
+                    <li>INTELLIGENCE: <span id="stat-intelligence">10</span></li>
+                    <li>WILLPOWER: <span id="stat-willpower">10</span></li>
+                </ul>
+            </div>
+            <div id="advancement">
+                <h3>ADVANCEMENT</h3>
+                <p>LEVEL: <span id="level">1</span></p>
+                <p>XP: <span id="xp">0</span> / 1000</p>
+                <p>CREDITS: <span id="credits">1000</span></p>
+            </div>
+            <div id="status-effects">
+                <h3>YOUR STATUS</h3>
+                <ul id="status-effects-list">
+                    <!-- Status effects will be listed here -->
+                </ul>
+            </div>
+        </div>
+        <div id="bottom-controls">
+             <!-- 15 buttons will be generated here by JS -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

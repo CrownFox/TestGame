@@ -1,0 +1,178 @@
+/* Basic styles for the game. */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#game-container {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px; /* Adjusted column widths */
+    grid-template-rows: 1fr auto;
+    grid-template-areas:
+        "left-sidebar main-content right-sidebar"
+        "left-sidebar bottom-controls right-sidebar"; /* Span bottom controls across main area only */
+    height: 100vh;
+    width: 100vw;
+    background-color: #0d0d1a;
+}
+
+#left-sidebar, #right-sidebar {
+    background-color: #04040a;
+    padding: 20px;
+    border: 1px solid #333;
+    color: #ccc;
+    display: flex;
+    flex-direction: column;
+}
+
+#left-sidebar {
+    grid-area: left-sidebar;
+}
+
+#right-sidebar {
+    grid-area: right-sidebar;
+}
+
+#main-content {
+    grid-area: main-content;
+    background-color: #080814;
+    padding: 40px;
+    overflow-y: auto;
+    font-size: 1.2em;
+    line-height: 1.6;
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
+}
+
+#bottom-controls {
+    grid-area: bottom-controls;
+    background-color: #080814;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 5px;
+    height: 200px; /* Fixed height for the control area */
+    border-top: 1px solid #333;
+}
+
+/* --- Left Sidebar --- */
+#character-info #character-icon {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #555;
+    margin-bottom: 10px;
+    background-color: #222; /* Placeholder bg */
+}
+
+#character-info h2 {
+    color: #fff;
+    margin: 0;
+}
+
+#character-info p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #888;
+}
+
+#location-map {
+    margin-top: 20px;
+}
+
+#location-map h3 {
+    text-align: center;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+#map-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    border: 1px solid #333;
+}
+
+.map-cell { /* Will be created by JS */
+    width: 100%;
+    padding-bottom: 100%; /* Aspect ratio 1:1 */
+    position: relative;
+    border: 1px solid #222;
+    background-color: #111;
+}
+
+.map-cell.player {
+    background-color: #00f;
+}
+
+#time-date {
+    margin-top: auto; /* Pushes to the bottom */
+    padding-top: 20px;
+    font-size: 0.9em;
+    color: #888;
+}
+
+#menu-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+#menu-buttons button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* --- Right Sidebar --- */
+#right-sidebar h3 {
+    color: #888;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+#right-sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#right-sidebar li, #right-sidebar p {
+    margin: 10px 0;
+}
+
+#stat-shields, #stat-hp {
+    color: #ff00ff; /* Magenta like in the screenshot */
+}
+
+#stat-energy {
+    color: #00ffff; /* Cyan like in the screenshot */
+}
+
+/* --- Bottom Controls --- */
+.control-button { /* Will be created by JS */
+    background-color: #1a1a2a;
+    border: 2px solid #444;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.control-button:hover {
+    background-color: #2a2a3a;
+    border-color: #666;
+}
+
+.control-button-dummy {
+    background-color: transparent;
+    border: 2px solid #1a1a2a; /* Match button color but look empty */
+}
