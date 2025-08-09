@@ -1,0 +1,14 @@
+{
+  "name": "sfw-adventure-game",
+  "version": "0.0.0",
+  "main": "main.js",
+  "repository": "https://github.com/CrownFox/TestGame.git",
+  "author": "CrownFox <kinchan21@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^37.2.6"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
