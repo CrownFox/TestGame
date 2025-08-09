@@ -17,6 +17,7 @@ class Game {
             planetName: document.getElementById('planet-name'),
             systemName: document.getElementById('system-name'),
             mapGrid: document.getElementById('map-grid'),
+            mapSvg: document.getElementById('map-svg'), // New UI element
             time: document.getElementById('time'),
             date: document.getElementById('date'),
             mainText: document.getElementById('main-text'),
@@ -34,6 +35,20 @@ class Game {
             statusEffectsList: document.getElementById('status-effects-list'),
             bottomControls: document.getElementById('bottom-controls'),
         };
+    }
+
+    /**
+     * Helper function to create SVG elements.
+     * @param {string} tag - The SVG tag name.
+     * @param {object} attributes - A dictionary of attributes to set on the element.
+     * @returns {SVGElement}
+     */
+    createSvgElement(tag, attributes) {
+        const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        for (const key in attributes) {
+            el.setAttribute(key, attributes[key]);
+        }
+        return el;
     }
 
     /**
@@ -167,39 +182,109 @@ class Game {
         } else {
             this.ui.mainText.textContent = this.currentLocation.description;
             this.ui.characterName.textContent = this.currentLocation.name;
-            // Hide the icon if there's no specific one for the location
             this.ui.characterIcon.style.display = 'none';
         }
     }
 
     /**
-     * Renders the 5x5 location map centered on the player.
+     * Renders the 5x5 location map as a node-and-line diagram on an SVG canvas.
      */
     renderMap() {
-        this.ui.mapGrid.innerHTML = '';
+        this.ui.mapGrid.innerHTML = ''; // Clear old div-based map cells
+        this.ui.mapSvg.innerHTML = ''; // Clear old SVG drawings
+
+        const gridWidth = this.ui.mapSvg.clientWidth;
+        const gridHeight = this.ui.mapSvg.clientHeight;
+        const cellWidth = gridWidth / 5;
+        const cellHeight = gridHeight / 5;
+
         const playerX = this.currentLocation.x;
         const playerY = this.currentLocation.y;
+
+        const visibleNodes = [];
         for (let y = -2; y <= 2; y++) {
             for (let x = -2; x <= 2; x++) {
-                const cell = document.createElement('div');
-                cell.classList.add('map-cell');
-                const targetX = playerX + x;
-                const targetY = playerY + y;
-                const location = this.locationsByCoords[`${targetX},${targetY}`];
+                const location = this.locationsByCoords[`${playerX + x},${playerY + y}`];
                 if (location) {
-                    cell.textContent = location.mapIcon;
-                    cell.style.display = 'flex';
-                    cell.style.justifyContent = 'center';
-                    cell.style.alignItems = 'center';
-                    cell.style.fontSize = '24px';
+                    visibleNodes.push({
+                        location,
+                        gridX: x + 2,
+                        gridY: y + 2
+                    });
                 }
-                if (x === 0 && y === 0) {
-                    cell.classList.add('player');
-                    cell.style.backgroundColor = '#00f';
-                }
-                this.ui.mapGrid.appendChild(cell);
             }
         }
+
+        const drawnConnections = new Set();
+        visibleNodes.forEach(node => {
+            const from = node.location;
+            if (!from.connections) return;
+
+            for (const direction in from.connections) {
+                const toId = from.connections[direction];
+                const connectionKey1 = `${from.id}-${toId}`;
+                const connectionKey2 = `${toId}-${from.id}`;
+
+                if (drawnConnections.has(connectionKey1) || drawnConnections.has(connectionKey2)) {
+                    continue;
+                }
+
+                const toNode = visibleNodes.find(n => n.location.id === toId);
+                if (toNode) {
+                    const line = this.createSvgElement('line', {
+                        x1: (node.gridX + 0.5) * cellWidth,
+                        y1: (node.gridY + 0.5) * cellHeight,
+                        x2: (toNode.gridX + 0.5) * cellWidth,
+                        y2: (toNode.gridY + 0.5) * cellHeight,
+                        stroke: '#444',
+                        'stroke-width': 2
+                    });
+                    this.ui.mapSvg.appendChild(line);
+                    drawnConnections.add(connectionKey1);
+                }
+            }
+        });
+
+        visibleNodes.forEach(node => {
+            const centerX = (node.gridX + 0.5) * cellWidth;
+            const centerY = (node.gridY + 0.5) * cellHeight;
+            const isPlayerNode = node.location.id === this.currentLocation.id;
+
+            if (['|', '-'].includes(node.location.mapIcon)) {
+                // Draw corridors as small dots
+                const dot = this.createSvgElement('circle', {
+                    cx: centerX,
+                    cy: centerY,
+                    r: 4,
+                    fill: isPlayerNode ? '#00f' : '#666'
+                });
+                this.ui.mapSvg.appendChild(dot);
+            } else {
+                // Draw locations as squares with text
+                const nodeSize = cellWidth * 0.6;
+                const rect = this.createSvgElement('rect', {
+                    x: centerX - nodeSize / 2,
+                    y: centerY - nodeSize / 2,
+                    width: nodeSize,
+                    height: nodeSize,
+                    fill: isPlayerNode ? '#00f' : '#333',
+                    stroke: '#888',
+                    'stroke-width': 2
+                });
+                const text = this.createSvgElement('text', {
+                    x: centerX,
+                    y: centerY,
+                    'text-anchor': 'middle',
+                    'dominant-baseline': 'middle',
+                    fill: '#fff',
+                    'font-size': nodeSize * 0.6
+                });
+                text.textContent = node.location.mapIcon;
+
+                this.ui.mapSvg.appendChild(rect);
+                this.ui.mapSvg.appendChild(text);
+            }
+        });
     }
 
     /**
